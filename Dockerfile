@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/ubi8/nodejs-12
 
-# WORKDIR /tmp/src
+WORKDIR /tmp/src
 
 USER 0 
 
