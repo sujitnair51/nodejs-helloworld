@@ -1,8 +1,11 @@
 FROM registry.access.redhat.com/ubi8/nodejs-12
 
+USER 0 ADD app-src /tmp/src 
+RUN chown -R 1001:0 /tmp/src 
+
 USER 1001
 
-WORKDIR /usr/src/app
+WORKDIR /tmp/src
 
 COPY package.json ./
 
