@@ -1,0 +1,50 @@
+ - apiVersion: v1
+  kind: Namespace
+  metadata:
+    name: default-1679526859424
+  spec:
+    finalizers:
+      - kubernetes
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: ml-flask-pkl
+    namespace: default-1679526859424
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: ml-flask-pkl
+    template:
+      metadata:
+        labels:
+          app: ml-flask-pkl
+      spec:
+        nodeSelector:
+          kubernetes.io/os: linux
+        containers:
+          - name: ml-flask-pkl
+            image: sujitnair0017/ml-flask-pkl
+            ports:
+              - containerPort: 80
+            resources:
+              requests:
+                cpu: '0'
+                memory: '0'
+              limits:
+                cpu: '256'
+                memory: 11400G
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: ml-flask-pkl-service
+    namespace: default-1679526859424
+  spec:
+    type: LoadBalancer
+    ports:
+      - targetPort: 80
+        name: port80
+        port: 80
+        protocol: TCP
+    selector:
+      app: ml-flask-pkl
